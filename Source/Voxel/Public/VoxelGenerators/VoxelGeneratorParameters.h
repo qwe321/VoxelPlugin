@@ -38,7 +38,7 @@ struct VOXEL_API FVoxelGeneratorParameterTerminalType
 	FName PropertyClass;
 
 	UPROPERTY()
-	UPackage* PropertyClassPackage;
+	UPackage* PropertyClassPackage = nullptr;
 
 	FString ToString_Terminal() const;
 	bool CanBeAssignedFrom_Terminal(const FVoxelGeneratorParameterTerminalType& Other) const;
@@ -64,7 +64,8 @@ public:
 	{
 		return
 			PropertyType == Other.PropertyType &&
-			PropertyClass == Other.PropertyClass;
+			PropertyClass == Other.PropertyClass &&
+				PropertyClassPackage == Other.PropertyClassPackage;
 	}
 	bool operator!=(const FVoxelGeneratorParameterType& Other) const
 	{

@@ -128,7 +128,7 @@ public:
 		[
 			SNew(STextBlock)
 			.Text(FText::FromString(Name))
-			.Font(FEditorStyle::GetFontStyle(PropertyEditorConstants::CategoryFontStyle))
+			.Font(FAppStyle::GetFontStyle(PropertyEditorConstants::CategoryFontStyle))
 		];
 	}
 	virtual void GenerateChildContent(IDetailChildrenBuilder& ChildrenBuilder) override
@@ -202,7 +202,7 @@ void FVoxelGeneratorPickerCustomization::CustomizeChildren(TSharedRef<IPropertyH
 	});
 	
 	UVoxelGeneratorPickerEditorData* EditorData = Cast<UVoxelGeneratorPickerEditorData>(Picker.EditorData);
-	if (!EditorData ||
+	if (!IsValid(EditorData) ||
 		!ensure(EditorData->Blueprint) ||
 		!ensure(EditorData->BlueprintInstance) ||
 		EditorData->GeneratorObject != Picker.GetObject() ||
@@ -210,7 +210,7 @@ void FVoxelGeneratorPickerCustomization::CustomizeChildren(TSharedRef<IPropertyH
 	{
 		auto& BlueprintPool = GetMutableDefault<UVoxelGeneratorPickerBlueprintPool>()->Blueprints;
 
-		if (EditorData)
+		if (IsValid(EditorData))
 		{
 			if (EditorData->Blueprint)
 			{
@@ -219,7 +219,7 @@ void FVoxelGeneratorPickerCustomization::CustomizeChildren(TSharedRef<IPropertyH
 			}
 			if (EditorData->BlueprintInstance) 
 			{
-				EditorData->BlueprintInstance->MarkPendingKill();
+				EditorData->BlueprintInstance->MarkAsGarbage();
 			}
 			
 			EditorData->GeneratorObject = nullptr;
@@ -343,7 +343,7 @@ void FVoxelGeneratorPickerCustomization::CustomizeChildren(TSharedRef<IPropertyH
 			if (!ensure(Parameter)) continue;
 
 			FString Value;
-			Property->ExportTextItem(Value, It->ContainerPtrToValuePtr<void>(BlueprintInstance), nullptr, BlueprintInstance, PPF_None);
+			Property->ExportTextItem_Direct(Value, It->ContainerPtrToValuePtr<void>(BlueprintInstance), nullptr, BlueprintInstance, PPF_None);
 
 			if (Parameter->DefaultValue == Value)
 			{
@@ -380,9 +380,12 @@ void FVoxelGeneratorPickerCustomization::CustomizeChildren(TSharedRef<IPropertyH
 			.OnClicked_Lambda([&Picker, Utilities = MakeWeakPtr(CustomizationUtils.GetPropertyUtilities())]()
 			{
 				// Force blueprint recompile
-				if (auto* EditorData = Cast<UVoxelGeneratorPickerEditorData>(Picker.EditorData))
-				{
-					EditorData->GeneratorObject = nullptr;
+				if (IsValid(Picker.EditorData))
+					{
+					 if (auto* EditorData = Cast<UVoxelGeneratorPickerEditorData>(Picker.EditorData))
+					 {
+						  EditorData->GeneratorObject = nullptr;
+					 }
 				}
 				if (auto Pinned = Utilities.Pin()) Pinned->ForceRefresh();
 				return FReply::Handled();
@@ -409,9 +412,12 @@ void FVoxelGeneratorPickerCustomization::CustomizeChildren(TSharedRef<IPropertyH
 					PropertyHandle->NotifyPreChange();
 					Picker.Parameters.Reset();
 					// Force blueprint recompile
-					if (auto* EditorData = Cast<UVoxelGeneratorPickerEditorData>(Picker.EditorData))
+					if (IsValid(Picker.EditorData))
 					{
-						EditorData->GeneratorObject = nullptr;
+						if (auto* EditorData = Cast<UVoxelGeneratorPickerEditorData>(Picker.EditorData))
+						{
+							EditorData->GeneratorObject = nullptr;
+						}
 					}
 					PropertyHandle->NotifyPostChange(EPropertyChangeType::ValueSet);
 				}

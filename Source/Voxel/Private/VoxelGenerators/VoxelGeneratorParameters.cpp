@@ -107,18 +107,22 @@ FVoxelGeneratorParameterType::FVoxelGeneratorParameterType(FProperty& Property)
 	if (Property.IsA<FFloatProperty>())
 	{
 		PropertyType = EVoxelGeneratorParameterPropertyType::Float;
+		PropertyClassPackage = nullptr;
 	}
 	else if (Property.IsA<FIntProperty>())
 	{
 		PropertyType = EVoxelGeneratorParameterPropertyType::Int;
+		PropertyClassPackage = nullptr;
 	}
 	else if (Property.IsA<FBoolProperty>())
 	{
 		PropertyType = EVoxelGeneratorParameterPropertyType::Bool;
+		PropertyClassPackage = nullptr;
 	}
 	else if (Property.IsA<FNameProperty>())
 	{
 		PropertyType = EVoxelGeneratorParameterPropertyType::Name;
+		PropertyClassPackage = nullptr;
 	}
 	else if (Property.IsA<FObjectProperty>())
 	{
