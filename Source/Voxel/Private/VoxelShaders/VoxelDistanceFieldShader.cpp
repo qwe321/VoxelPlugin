@@ -107,9 +107,9 @@ void FVoxelDistanceFieldShaderHelper::Compute_RenderThread(
 	
 	{
 		VOXEL_RENDER_SCOPE_COUNTER("Copy Data To Buffers");
-		void* BufferData = RHICmdList.LockVertexBuffer(SrcBuffer.Buffer, 0, SrcBuffer.NumBytes, EResourceLockMode::RLM_WriteOnly);
+		void* BufferData = RHICmdList.LockBuffer(SrcBuffer.Buffer, 0, SrcBuffer.NumBytes, EResourceLockMode::RLM_WriteOnly);
 		FMemory::Memcpy(BufferData, Data, SrcBuffer.NumBytes);
-		RHICmdList.UnlockVertexBuffer(SrcBuffer.Buffer);
+		RHICmdList.UnlockBuffer(SrcBuffer.Buffer);
 	}
 
 	const int32 PowerOfTwo = FMath::CeilLogTwo(Size.GetMax());
@@ -134,9 +134,9 @@ void FVoxelDistanceFieldShaderHelper::Compute_RenderThread(
 	
 	{
 		VOXEL_RENDER_SCOPE_COUNTER("Copy Data From Buffers");
-		void* BufferData = RHICmdList.LockVertexBuffer(SrcBuffer.Buffer, 0, SrcBuffer.NumBytes, EResourceLockMode::RLM_ReadOnly);
+		void* BufferData = RHICmdList.LockBuffer(SrcBuffer.Buffer, 0, SrcBuffer.NumBytes, EResourceLockMode::RLM_ReadOnly);
 		FMemory::Memcpy(Data, BufferData, SrcBuffer.NumBytes);
-		RHICmdList.UnlockVertexBuffer(SrcBuffer.Buffer);
+		RHICmdList.UnlockBuffer(SrcBuffer.Buffer);
 	}
 
 	// Make sure to release the buffers, else will crash on DX12!

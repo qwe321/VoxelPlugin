@@ -83,47 +83,47 @@ void FVoxelGraphEditorToolkit::RegisterTabSpawners(const TSharedRef<class FTabMa
 	InTabManager->RegisterTabSpawner(GraphCanvasTabId, FOnSpawnTab::CreateSP(this, &FVoxelGraphEditorToolkit::SpawnTab_GraphCanvas))
 		.SetDisplayName(VOXEL_LOCTEXT("Main Graph"))
 		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "GraphEditor.EventGraph_16x"));
+		.SetIcon(FSlateIcon(FAppStyle::GetAppStyleSetName(), "GraphEditor.EventGraph_16x"));
 
 	InTabManager->RegisterTabSpawner(DebugGraphCanvasTabId, FOnSpawnTab::CreateSP(this, &FVoxelGraphEditorToolkit::SpawnTab_DebugGraphCanvas))
 		.SetDisplayName(VOXEL_LOCTEXT("Debug Graph"))
 		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "GraphEditor.EventGraph_16x"));
+		.SetIcon(FSlateIcon(FAppStyle::GetAppStyleSetName(), "GraphEditor.EventGraph_16x"));
 
 	InTabManager->RegisterTabSpawner(PropertiesTabId, FOnSpawnTab::CreateSP(this, &FVoxelGraphEditorToolkit::SpawnTab_Properties))
 		.SetDisplayName(VOXEL_LOCTEXT("Details"))
 		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "LevelEditor.Tabs.Details"));
+		.SetIcon(FSlateIcon(FAppStyle::GetAppStyleSetName(), "LevelEditor.Tabs.Details"));
 
 	InTabManager->RegisterTabSpawner(ShortcutsTabId, FOnSpawnTab::CreateSP(this, &FVoxelGraphEditorToolkit::SpawnTab_Shortcuts))
 		.SetDisplayName(VOXEL_LOCTEXT("Shortcuts"))
 		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "LevelEditor.Tabs.Details"));
+		.SetIcon(FSlateIcon(FAppStyle::GetAppStyleSetName(), "LevelEditor.Tabs.Details"));
 
 	InTabManager->RegisterTabSpawner(PreviewSettingsTabId, FOnSpawnTab::CreateSP(this, &FVoxelGraphEditorToolkit::SpawnTab_PreviewSettings))
 		.SetDisplayName(VOXEL_LOCTEXT("Preview Settings"))
 		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "LevelEditor.Tabs.Details"));
+		.SetIcon(FSlateIcon(FAppStyle::GetAppStyleSetName(), "LevelEditor.Tabs.Details"));
 
 	InTabManager->RegisterTabSpawner(PaletteTabId, FOnSpawnTab::CreateSP(this, &FVoxelGraphEditorToolkit::SpawnTab_Palette))
 		.SetDisplayName(VOXEL_LOCTEXT("Palette"))
 		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "Kismet.Tabs.Palette"));
+		.SetIcon(FSlateIcon(FAppStyle::GetAppStyleSetName(), "Kismet.Tabs.Palette"));
 
 	InTabManager->RegisterTabSpawner(PreviewTabId, FOnSpawnTab::CreateSP(this, &FVoxelGraphEditorToolkit::SpawnTab_Preview))
 		.SetDisplayName(VOXEL_LOCTEXT("Preview"))
 		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "LevelEditor.Tabs.Viewports"));
+		.SetIcon(FSlateIcon(FAppStyle::GetAppStyleSetName(), "LevelEditor.Tabs.Viewports"));
 
 	InTabManager->RegisterTabSpawner(PreviewViewportTabId, FOnSpawnTab::CreateSP(this, &FVoxelGraphEditorToolkit::SpawnTab_PreviewViewport))
 		.SetDisplayName(VOXEL_LOCTEXT("3D Preview"))
 		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "LevelEditor.Tabs.Viewports"));
+		.SetIcon(FSlateIcon(FAppStyle::GetAppStyleSetName(), "LevelEditor.Tabs.Viewports"));
 
 	InTabManager->RegisterTabSpawner(MessagesTabId, FOnSpawnTab::CreateSP(this, &FVoxelGraphEditorToolkit::SpawnTab_Messages))
 		.SetDisplayName(VOXEL_LOCTEXT("Messages"))
 		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "MessageLog.TabIcon"));
+		.SetIcon(FSlateIcon(FAppStyle::GetAppStyleSetName(), "MessageLog.TabIcon"));
 }
 
 void FVoxelGraphEditorToolkit::UnregisterTabSpawners(const TSharedRef<class FTabManager>& InTabManager)
@@ -186,7 +186,6 @@ void FVoxelGraphEditorToolkit::InitVoxelEditor(const EToolkitMode::Type Mode, co
 			FTabManager::NewStack()
 			->SetSizeCoefficient(0.1f)
 			->SetHideTabWell( true )
-			->AddTab(GetToolbarTabId(), ETabState::OpenedTab)
 		)
 		->Split
 		(
@@ -803,11 +802,11 @@ TSharedRef<SDockTab> FVoxelGraphEditorToolkit::SpawnTab_Properties(const FSpawnT
 	
 	auto Tab =
 		 SNew(SDockTab)
-		.Icon(FEditorStyle::GetBrush("LevelEditor.Tabs.Details"))
 		.Label(VOXEL_LOCTEXT("Details"))
 		[
 			VoxelProperties.ToSharedRef()
 		];
+	Tab->SetTabIcon(FAppStyle::GetBrush("LevelEditor.Tabs.Details"));
 	return Tab;
 }
 
@@ -817,11 +816,11 @@ TSharedRef<SDockTab> FVoxelGraphEditorToolkit::SpawnTab_Shortcuts(const FSpawnTa
 	
 	auto Tab =
 		 SNew(SDockTab)
-		.Icon(FEditorStyle::GetBrush("LevelEditor.Tabs.Details"))
 		.Label(VOXEL_LOCTEXT("Shortcuts"))
 		[
 			ShortcutsProperties.ToSharedRef()
 		];
+	Tab->SetTabIcon(FAppStyle::GetBrush("LevelEditor.Tabs.Details"));
 	return Tab;
 }
 
@@ -831,11 +830,11 @@ TSharedRef<SDockTab> FVoxelGraphEditorToolkit::SpawnTab_PreviewSettings(const FS
 	
 	auto Tab =
 		 SNew(SDockTab)
-		.Icon(FEditorStyle::GetBrush("LevelEditor.Tabs.Details"))
 		.Label(VOXEL_LOCTEXT("Preview Settings"))
 		[
 			PreviewSettings.ToSharedRef()
 		];
+	Tab->SetTabIcon(FAppStyle::GetBrush("LevelEditor.Tabs.Details"));
 	return Tab;
 }
 
@@ -845,11 +844,11 @@ TSharedRef<SDockTab> FVoxelGraphEditorToolkit::SpawnTab_Palette(const FSpawnTabA
 	
 	auto Tab =
 		 SNew(SDockTab)
-		.Icon(FEditorStyle::GetBrush("Kismet.Tabs.Palette"))
 		.Label(VOXEL_LOCTEXT("Palette"))
 		[
 			Palette.ToSharedRef()
 		];
+	Tab->SetTabIcon(FAppStyle::GetBrush("Kismet.Tabs.Palette"));
 	return Tab;
 }
 
@@ -859,7 +858,6 @@ TSharedRef<SDockTab> FVoxelGraphEditorToolkit::SpawnTab_Preview(const FSpawnTabA
 	
 	auto Tab =
 		 SNew(SDockTab)
-		.Icon(FEditorStyle::GetBrush("LevelEditor.Tabs.Viewports"))
 		.Label(VOXEL_LOCTEXT("Preview"))
 		[
 			// Do the scaling here to make math easier
@@ -869,6 +867,7 @@ TSharedRef<SDockTab> FVoxelGraphEditorToolkit::SpawnTab_Preview(const FSpawnTabA
 				Preview.ToSharedRef()
 			]
 		];
+	Tab->SetTabIcon(FAppStyle::GetBrush("LevelEditor.Tabs.Viewports"));
 	return Tab;
 }
 
@@ -878,11 +877,11 @@ TSharedRef<SDockTab> FVoxelGraphEditorToolkit::SpawnTab_PreviewViewport(const FS
 
 	auto Tab =
 		 SNew(SDockTab)
-		.Icon(FEditorStyle::GetBrush("LevelEditor.Tabs.Viewports"))
 		.Label(VOXEL_LOCTEXT("3D Preview"))
 		[
 			PreviewViewport.ToSharedRef()
 		];
+	Tab->SetTabIcon(FAppStyle::GetBrush("LevelEditor.Tabs.Viewports"));
 	return Tab;
 }
 
@@ -892,11 +891,11 @@ TSharedRef<SDockTab> FVoxelGraphEditorToolkit::SpawnTab_Messages(const FSpawnTab
 
 	auto Tab =
 		 SNew(SDockTab)
-		.Icon(FEditorStyle::GetBrush("MessageLog.TabIcon"))
 		.Label(VOXEL_LOCTEXT("Messages"))
 		[
 			MessagesWidget.ToSharedRef()
 		];
+	Tab->SetTabIcon(FAppStyle::GetBrush("MessageLog.TabIcon"));
 	return Tab;
 }
 
@@ -1082,7 +1081,7 @@ void FVoxelGraphEditorToolkit::DeleteSelectedNodes()
 				if (VoxelNode)
 				{
 					VoxelNode->Modify();
-					VoxelNode->MarkPendingKill();
+					VoxelNode->MarkAsGarbage();
 				}
 
 				auto* PreviewedPin = Generator->PreviewedPin.Get();

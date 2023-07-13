@@ -86,12 +86,12 @@ bool FVoxelGraphEditorViewportClient::ShouldOrbitCamera() const
 
 bool FVoxelGraphEditorViewportClient::InputKey(FViewport* InViewport, int32 ControllerId, FKey Key, EInputEvent Event, float AmountDepressed, bool bGamepad)
 {
-	bool bHandled = FEditorViewportClient::InputKey(InViewport, ControllerId, Key, Event, AmountDepressed, false);
+	bool bHandled = FEditorViewportClient::InputKey(FInputKeyEventArgs(InViewport, ControllerId, Key, Event, AmountDepressed, false));
 
 	// Handle viewport screenshot.
 	bHandled |= InputTakeScreenshot(InViewport, Key, Event);
 
-	bHandled |= AdvancedPreviewScene->HandleInputKey(InViewport, ControllerId, Key, Event, AmountDepressed, bGamepad);
+	bHandled |= AdvancedPreviewScene->HandleInputKey(FInputKeyEventArgs(InViewport, ControllerId, Key, Event, AmountDepressed, false));
 
 	return bHandled;
 }
@@ -102,14 +102,14 @@ bool FVoxelGraphEditorViewportClient::InputAxis(FViewport* InViewport, int32 Con
 
 	if (!bDisableInput)
 	{
-		bResult = AdvancedPreviewScene->HandleViewportInput(InViewport, ControllerId, Key, Delta, DeltaTime, NumSamples, bGamepad);
+		bResult = AdvancedPreviewScene->HandleViewportInput(InViewport, FInputDeviceId::CreateFromInternalId(ControllerId), Key, Delta, DeltaTime, NumSamples, bGamepad);
 		if (bResult)
 		{
 			Invalidate();
 		}
 		else
 		{
-			bResult = FEditorViewportClient::InputAxis(InViewport, ControllerId, Key, Delta, DeltaTime, NumSamples, bGamepad);
+			bResult = FEditorViewportClient::InputAxis(InViewport, FInputDeviceId::CreateFromInternalId(ControllerId), Key, Delta, DeltaTime, NumSamples, bGamepad);
 		}
 	}
 

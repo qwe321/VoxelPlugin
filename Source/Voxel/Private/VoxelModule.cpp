@@ -13,6 +13,7 @@
 #include "Misc/PackageName.h"
 #include "Misc/MessageDialog.h"
 #include "Misc/ConfigCacheIni.h"
+#include "Misc/ConfigUtilities.h"
 #include "Modules/ModuleManager.h"
 
 void FVoxelModule::StartupModule()
@@ -32,7 +33,7 @@ void FVoxelModule::StartupModule()
 
 	FVoxelStartupPopup::OnModuleStartup();
 	
-	ApplyCVarSettingsFromIni(TEXT("/Script/Voxel.VoxelSettings"), *GEngineIni, ECVF_SetByProjectSetting);
+	UE::ConfigUtilities::ApplyCVarSettingsFromIni(TEXT("/Script/Voxel.VoxelSettings"), *GEngineIni, ECVF_SetByProjectSetting);
 	
 	IPlugin& Plugin = FVoxelSystemUtilities::GetPlugin();
 

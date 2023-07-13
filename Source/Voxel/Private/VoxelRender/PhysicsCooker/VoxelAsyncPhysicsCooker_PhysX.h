@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "VoxelAsyncPhysicsCooker.h"
 
-#if WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
+#if ENGINE_MAJOR_VERSION < 5
 #include "IPhysXCooking.h"
 struct FKConvexElem;
 class IPhysXCooking;

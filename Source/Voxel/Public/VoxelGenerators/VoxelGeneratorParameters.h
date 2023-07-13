@@ -37,6 +37,9 @@ struct VOXEL_API FVoxelGeneratorParameterTerminalType
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Parameter")
 	FName PropertyClass;
 
+	UPROPERTY()
+	UPackage* PropertyClassPackage;
+
 	FString ToString_Terminal() const;
 	bool CanBeAssignedFrom_Terminal(const FVoxelGeneratorParameterTerminalType& Other) const;
 };

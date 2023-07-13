@@ -51,7 +51,7 @@ bool UVoxelGeneratorTools::SetGeneratorParameterImpl(FVoxelGeneratorPicker& Pick
 	}
 
 	FString Result;
-	Property.ExportTextItem(Result, Data, nullptr, nullptr, PPF_None);
+	Property.ExportTextItem_Direct(Result, Data, nullptr, nullptr, PPF_None);
 	Picker.Parameters.Add(Name, Result);
 	
 	return true;

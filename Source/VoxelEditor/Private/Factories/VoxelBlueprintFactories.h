@@ -31,7 +31,7 @@ public:
 		Options.Mode = EClassViewerMode::ClassPicker;
 
 		const auto Filter = MakeShared<FVoxelAssetClassParentFilter>();
-		Options.ClassFilter = Filter;
+		Options.ClassFilters.Add(Filter);
 
 		Filter->DisallowedClassFlags = CLASS_Deprecated | CLASS_NewerVersionExists;
 		Filter->AllowedChildrenOfClasses.Add(SupportedClass);

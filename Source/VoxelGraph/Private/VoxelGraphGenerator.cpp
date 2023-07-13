@@ -97,7 +97,7 @@ UTexture2D* UVoxelGraphGenerator::GetPreviewTexture()
 
 		PreviewTextureSave.SetNumZeroed(VOXEL_GRAPH_THUMBNAIL_RES * VOXEL_GRAPH_THUMBNAIL_RES);
 
-		FTexture2DMipMap& Mip = PreviewTexture->PlatformData->Mips[0];
+		FTexture2DMipMap& Mip = PreviewTexture->GetPlatformData()->Mips[0];
 
 		void* Data = Mip.BulkData.Lock(LOCK_READ_WRITE);
 		FMemory::Memcpy(Data, PreviewTextureSave.GetData(), PreviewTextureSave.Num() * sizeof(FColor));

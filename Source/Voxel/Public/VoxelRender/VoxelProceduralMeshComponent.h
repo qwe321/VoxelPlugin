@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine.h"
 #include "VoxelIntBox.h"
 #include "VoxelMinimal.h"
 #include "VoxelPriorityHandler.h"

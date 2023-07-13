@@ -323,5 +323,5 @@ void UVoxelLocalVariableUsage::PostCopyNode(const TArray<UVoxelNode*>& CopiedNod
 bool UVoxelLocalVariableUsage::IsDeclarationValid() const
 {
 	// Deleted expressions are marked as pending kill (see FVoxelGraphEditorToolkit::DeleteSelectedNodes)
-	return Declaration && !Declaration->IsPendingKill();
+	return Declaration && IsValid(Declaration);
 }

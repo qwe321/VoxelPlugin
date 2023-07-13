@@ -6,6 +6,7 @@
 
 #include "BlueprintEditorSettings.h"
 #include "EditorStyleSet.h"
+#include "SGraphPanel.h"
 #include "EdGraph/EdGraph.h"
 
 FConnectionDrawingPolicy* FVoxelGraphConnectionDrawingPolicyFactory::CreateConnectionPolicy(const UEdGraphSchema* Schema, int32 InBackLayerID, int32 InFrontLayerID, float ZoomFactor, const FSlateRect& InClippingRect, FSlateWindowElementList& InDrawElements, UEdGraph* InGraphObj) const

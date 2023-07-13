@@ -91,7 +91,7 @@ IVoxelAsyncPhysicsCooker::IVoxelAsyncPhysicsCooker(UVoxelProceduralMeshComponent
 IVoxelAsyncPhysicsCooker* IVoxelAsyncPhysicsCooker::CreateCooker(UVoxelProceduralMeshComponent* Component)
 {
 	check(Component);
-#if WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
+#if ENGINE_MAJOR_VERSION < 5
 	return new FVoxelAsyncPhysicsCooker_PhysX(Component);
 #elif WITH_CHAOS
 	return new FVoxelAsyncPhysicsCooker_Chaos(Component);

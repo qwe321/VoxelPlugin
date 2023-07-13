@@ -154,7 +154,9 @@ bool FVoxelDataAssetEditorViewportClient::InputKey(FViewport* InViewport, int32 
 
 	if (!bHandled)
 	{
-		bHandled = FEditorViewportClient::InputKey(InViewport, ControllerId, Key, Event, AmountDepressed, bGamepad);
+		FInputKeyEventArgs Args(InViewport, ControllerId, Key, Event);
+		Args.AmountDepressed = AmountDepressed;
+		bHandled = FEditorViewportClient::InputKey(Args);
 	}
 
 	return bHandled;

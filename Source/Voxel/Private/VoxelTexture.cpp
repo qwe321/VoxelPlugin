@@ -61,7 +61,7 @@ inline void ExtractTextureData(UTexture* Texture, int32& OutSizeX, int32& OutSiz
 
 	if (auto* Texture2D = Cast<UTexture2D>(Texture))
 	{
-		FTexture2DMipMap& Mip = Texture2D->PlatformData->Mips[0];
+		FTexture2DMipMap& Mip = Texture2D->GetPlatformData()->Mips[0];
 		OutSizeX = Mip.SizeX;
 		OutSizeY = Mip.SizeY;
 
@@ -310,9 +310,9 @@ void FVoxelTextureHelpers::CreateOrUpdateUTexture2D(const TVoxelTexture<float>& 
 	VOXEL_FUNCTION_COUNTER();
 	
 	if (!InOutTexture || 
-		!InOutTexture->PlatformData || 
-		InOutTexture->PlatformData->Mips.Num() == 0 || 
-		InOutTexture->PlatformData->PixelFormat != EPixelFormat::PF_R32_FLOAT ||
+		!InOutTexture->GetPlatformData() || 
+		InOutTexture->GetPlatformData()->Mips.Num() == 0 || 
+		InOutTexture->GetPlatformData()->PixelFormat != EPixelFormat::PF_R32_FLOAT ||
 		InOutTexture->GetSizeX() != Texture.GetSizeX() || 
 		InOutTexture->GetSizeY() != Texture.GetSizeY())
 	{
@@ -322,7 +322,7 @@ void FVoxelTextureHelpers::CreateOrUpdateUTexture2D(const TVoxelTexture<float>& 
 		InOutTexture->Filter = TF_Bilinear;
 	}
 	
-	FTexture2DMipMap& Mip = InOutTexture->PlatformData->Mips[0];
+	FTexture2DMipMap& Mip = InOutTexture->GetPlatformData()->Mips[0];
 	float* Data = reinterpret_cast<float*>(Mip.BulkData.Lock(LOCK_READ_WRITE));
 	if (!ensureAlways(Data)) return;
 
@@ -338,9 +338,9 @@ void FVoxelTextureHelpers::CreateOrUpdateUTexture2D(const TVoxelTexture<FColor>&
 	VOXEL_FUNCTION_COUNTER();
 	
 	if (!InOutTexture || 
-		!InOutTexture->PlatformData || 
-		InOutTexture->PlatformData->Mips.Num() == 0 || 
-		InOutTexture->PlatformData->PixelFormat != EPixelFormat::PF_B8G8R8A8 ||
+		!InOutTexture->GetPlatformData() || 
+		InOutTexture->GetPlatformData()->Mips.Num() == 0 || 
+		InOutTexture->GetPlatformData()->PixelFormat != EPixelFormat::PF_B8G8R8A8 ||
 		InOutTexture->GetSizeX() != Texture.GetSizeX() || 
 		InOutTexture->GetSizeY() != Texture.GetSizeY())
 	{
@@ -350,7 +350,7 @@ void FVoxelTextureHelpers::CreateOrUpdateUTexture2D(const TVoxelTexture<FColor>&
 		InOutTexture->Filter = TF_Bilinear;
 	}
 	
-	FTexture2DMipMap& Mip = InOutTexture->PlatformData->Mips[0];
+	FTexture2DMipMap& Mip = InOutTexture->GetPlatformData()->Mips[0];
 	FColor* Data = reinterpret_cast<FColor*>(Mip.BulkData.Lock(LOCK_READ_WRITE));
 	if (!ensureAlways(Data)) return;
 

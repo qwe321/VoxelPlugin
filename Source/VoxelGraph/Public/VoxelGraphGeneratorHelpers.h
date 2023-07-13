@@ -78,9 +78,9 @@ public:
 		UWorldObject& Object)
 		: TVoxelTransformableGeneratorInstanceHelper<TChild, UWorldObject>(&Object, CustomFunctionPtrs, CustomFunctionPtrs_Transform)
 		, bEnableRangeAnalysis(Object.bEnableRangeAnalysis)
-		, CustomOutputsNames(FName())
+		, CustomOutputsNames(InPlace, FName())
 	{
-		auto& Array = const_cast<TStaticArray<FName, MAX_VOXELGRAPH_OUTPUTS>&>(InPlace, CustomOutputsNames);
+		auto& Array = const_cast<TStaticArray<FName, MAX_VOXELGRAPH_OUTPUTS>&>(CustomOutputsNames);
 		for (auto& It : FloatOutputs)
 		{
 			ensure(Array[It.Value] == FName());

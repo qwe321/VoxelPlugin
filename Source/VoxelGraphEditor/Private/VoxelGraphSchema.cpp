@@ -621,7 +621,7 @@ void UVoxelGraphSchema::DroppedAssetsOnGraph(const TArray<FAssetData>& Assets, c
 	FStreamableManager AssetLoader;
 	for(auto& AssetData : Assets)
 	{
-		FStringAssetReference AssetRef(AssetData.ObjectPath.ToString());
+		FStringAssetReference AssetRef(AssetData.GetObjectPathString());
 		UObject* Asset = AssetLoader.LoadSynchronous(AssetRef);
 		if (Asset->IsA<UVoxelHeightmapAsset>())
 		{
@@ -684,7 +684,7 @@ void UVoxelGraphSchema::GetAssetsGraphHoverMessage(const TArray<FAssetData>& Ass
 	FStreamableManager AssetLoader;
 	for(auto& AssetData : Assets)
 	{
-		FStringAssetReference AssetRef(AssetData.ObjectPath.ToString());
+		FStringAssetReference AssetRef(AssetData.GetObjectPathString());
 		UObject* Asset = AssetLoader.LoadSynchronous(AssetRef);
 		if (Asset->IsA<UVoxelHeightmapAsset>())
 		{
@@ -909,12 +909,12 @@ void UVoxelGraphSchema::GetAllVoxelNodeActions(FGraphActionMenuBuilder& ActionMe
 
 		// Collect a full list of assets with the specified class
 		TArray<FAssetData> AssetDataList;
-		AssetRegistryModule.Get().GetAssetsByClass(UVoxelGraphMacro::StaticClass()->GetFName(), AssetDataList);
+		AssetRegistryModule.Get().GetAssetsByClass(UVoxelGraphMacro::StaticClass()->GetClassPathName(), AssetDataList);
 
 		for (const FAssetData& AssetData : AssetDataList)
 		{
 			FStreamableManager AssetLoader;
-			FStringAssetReference AssetRef(AssetData.ObjectPath.ToString());
+			FStringAssetReference AssetRef(AssetData.GetObjectPathString());
 			UVoxelGraphMacro* Macro = Cast<UVoxelGraphMacro>(AssetLoader.LoadSynchronous(AssetRef));
 
 			if (!Macro || !Macro->InputNode || !Macro->OutputNode || !Macro->bShowInContextMenu)

@@ -44,7 +44,7 @@ FText UVoxelExposedNode::GetTitle() const
 		Property.IsA<FBoolProperty>())
 	{
 		FString Value;
-		Property.ExportTextItem(Value, Property.ContainerPtrToValuePtr<void>(this), nullptr, nullptr, PPF_None);
+		Property.ExportTextItem_Direct(Value, Property.ContainerPtrToValuePtr<void>(this), nullptr, nullptr, PPF_None);
 		
 		if (Property.IsA<FFloatProperty>())
 		{
@@ -94,7 +94,7 @@ void UVoxelExposedNode::ApplyParameters(const TMap<FName, FString>& Parameters)
 
 	Modify();
 
-	if (!ensure(Property.ImportText(**NewValuePtr, Property.ContainerPtrToValuePtr<void>(this), PPF_None, this)))
+	if (!ensure(Property.ImportText_Direct(**NewValuePtr, Property.ContainerPtrToValuePtr<void>(this), this, PPF_None)))
 	{
 		return;
 	}
@@ -112,7 +112,7 @@ void UVoxelExposedNode::GetParameters(TArray<FVoxelGeneratorParameter>& OutParam
 	auto& Property = GetParameterProperty();
 
 	FString DefaultValue;
-	Property.ExportTextItem(DefaultValue, Property.ContainerPtrToValuePtr<void>(this), nullptr, nullptr, PPF_None);
+	Property.ExportTextItem_Direct(DefaultValue, Property.ContainerPtrToValuePtr<void>(this), nullptr, nullptr, PPF_None);
 
 	OutParameters.Add(FVoxelGeneratorParameter(
 		UniqueName,

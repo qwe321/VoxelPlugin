@@ -129,7 +129,7 @@ public:
 		{
 			for (auto& Vertex : MesherVertices)
 			{
-				Vertex.Tangent.TangentX = FVector(FMath::FRandRange(-1, 1), FMath::FRandRange(-1, 1), FMath::FRandRange(-1, 1)).GetSafeNormal();
+				Vertex.Tangent.TangentX = FVector(FMath::FRandRange(-1.0f, 1.0f), FMath::FRandRange(-1.0f, 1.0f), FMath::FRandRange(-1.0f, 1.0f)).GetSafeNormal();
 			}
 		}
 		else
@@ -373,7 +373,7 @@ TVoxelSharedPtr<FVoxelChunkMesh> FVoxelMarchingCubeMesher::CreateFullChunkImpl(F
 		
 		const int32 NumTriangles = Indices.Num() / 3;
 		const int32 NumSquares = FVoxelUtilities::DivideCeil(NumTriangles, 2);
-		const int32 NumSquaresPerRow = FMath::CeilToInt(FMath::Sqrt(NumSquares));
+		const int32 NumSquaresPerRow = FMath::CeilToInt(FMath::Sqrt(static_cast<double>(NumSquares)));
 		check(NumSquares <= NumSquaresPerRow * NumSquaresPerRow);
 
 		const int32 TextureUVSize = 1;

@@ -237,8 +237,19 @@ void UVoxelErosion::Init_RenderThread()
 	const UE_26_SWITCH(uint32, ETextureCreateFlags) Flags = TexCreate_ShaderResource | TexCreate_UAV;
 
 #define CREATE_TEXTURE(Name, SizeX) \
-	Name = RHICreateTexture2D(SizeX * RealSize, RealSize, PF_R32_FLOAT, 1, 1, Flags, CreateInfo); \
-	Name##UAV = RHICreateUnorderedAccessView(Name); \
+	Name = RHICreateTexture( \
+		FRHITextureCreateDesc::Create2D(CreateInfo.DebugName) \
+			.SetExtent((int32)(SizeX * RealSize), (int32)(RealSize)) \
+			.SetFormat((EPixelFormat)PF_R32_FLOAT) \
+			.SetNumMips((uint8)1) \
+			.SetNumSamples((uint8)1) \
+			.SetFlags(Flags) \
+			.SetInitialState(ERHIAccess::Unknown) \
+			.SetExtData(CreateInfo.ExtData) \
+			.SetBulkData(CreateInfo.BulkData) \
+			.SetGPUMask(CreateInfo.GPUMask) \
+			.SetClearValue(CreateInfo.ClearValueBinding)); \
+	Name##UAV = RHICreateUnorderedAccessView(Name);
 
 	CREATE_TEXTURE(RainMap, 1);
 	CREATE_TEXTURE(TerrainHeight, 1);

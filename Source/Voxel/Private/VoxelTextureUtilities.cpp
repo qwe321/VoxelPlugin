@@ -21,7 +21,7 @@ void FVoxelTextureUtilities::UpdateColorTexture(UTexture2D*& Texture, const FInt
 		Texture->CompressionSettings = TC_HDR;
 		Texture->SRGB = false;
 	}
-	FTexture2DMipMap& Mip = Texture->PlatformData->Mips[0];
+	FTexture2DMipMap& Mip = Texture->GetPlatformData()->Mips[0];
 	{
 		void* Data = Mip.BulkData.Lock(LOCK_READ_WRITE);
 		if (ensure(Data))

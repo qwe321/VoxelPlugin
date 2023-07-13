@@ -61,8 +61,8 @@ bool FVoxelGeneratorParameterTerminalType::CanBeAssignedFrom_Terminal(const FVox
 		{
 		case EVoxelGeneratorParameterPropertyType::Object:
 		{
-			auto* ThisClass = FindObject<UClass>(ANY_PACKAGE, *PropertyClass.ToString());
-			auto* OtherClass = FindObject<UClass>(ANY_PACKAGE, *Other.PropertyClass.ToString());
+			auto* ThisClass = FindObject<UClass>(PropertyClassPackage, *PropertyClass.ToString());
+			auto* OtherClass = FindObject<UClass>(PropertyClassPackage, *Other.PropertyClass.ToString());
 
 			if (!ThisClass || !OtherClass)
 			{
@@ -81,8 +81,8 @@ bool FVoxelGeneratorParameterTerminalType::CanBeAssignedFrom_Terminal(const FVox
 		{
 		case EVoxelGeneratorParameterPropertyType::Struct:
 		{
-			auto* ThisStruct = FindObject<UScriptStruct>(ANY_PACKAGE, *PropertyClass.ToString());
-			auto* OtherStruct = FindObject<UScriptStruct>(ANY_PACKAGE, *Other.PropertyClass.ToString());
+			auto* ThisStruct = FindObject<UScriptStruct>(PropertyClassPackage, *PropertyClass.ToString());
+			auto* OtherStruct = FindObject<UScriptStruct>(PropertyClassPackage, *Other.PropertyClass.ToString());
 
 			if (!ThisStruct || !OtherStruct)
 			{
@@ -126,6 +126,7 @@ FVoxelGeneratorParameterType::FVoxelGeneratorParameterType(FProperty& Property)
 
 		auto* ObjectProperty = CastField<FObjectProperty>(&Property);
 		PropertyClass = ObjectProperty->PropertyClass->GetFName();
+		PropertyClassPackage = ObjectProperty->PropertyClass->GetPackage();
 	}
 	else if (Property.IsA<FSoftObjectProperty>())
 	{
@@ -133,6 +134,7 @@ FVoxelGeneratorParameterType::FVoxelGeneratorParameterType(FProperty& Property)
 
 		auto* ObjectProperty = CastField<FSoftObjectProperty>(&Property);
 		PropertyClass = ObjectProperty->PropertyClass->GetFName();
+		PropertyClassPackage = ObjectProperty->PropertyClass->GetPackage();
 	}
 	else if (Property.IsA<FStructProperty>())
 	{
@@ -140,6 +142,7 @@ FVoxelGeneratorParameterType::FVoxelGeneratorParameterType(FProperty& Property)
 
 		auto* ObjectProperty = CastField<FStructProperty>(&Property);
 		PropertyClass = ObjectProperty->Struct->GetFName();
+		PropertyClassPackage = ObjectProperty->Struct->GetPackage();
 	}
 	else if (Property.IsA<FArrayProperty>())
 	{
@@ -152,6 +155,7 @@ FVoxelGeneratorParameterType::FVoxelGeneratorParameterType(FProperty& Property)
 		
 		PropertyType = InnerType.PropertyType;
 		PropertyClass = InnerType.PropertyClass;
+		PropertyClassPackage = InnerType.PropertyClassPackage;
 	}
 	else if (Property.IsA<FSetProperty>())
 	{
@@ -164,6 +168,7 @@ FVoxelGeneratorParameterType::FVoxelGeneratorParameterType(FProperty& Property)
 		
 		PropertyType = InnerType.PropertyType;
 		PropertyClass = InnerType.PropertyClass;
+		PropertyClassPackage = InnerType.PropertyClassPackage;
 	}
 	else if (Property.IsA<FMapProperty>())
 	{
@@ -179,6 +184,7 @@ FVoxelGeneratorParameterType::FVoxelGeneratorParameterType(FProperty& Property)
 		
 		PropertyType = KeyType.PropertyType;
 		PropertyClass = KeyType.PropertyClass;
+		PropertyClassPackage = KeyType.PropertyClassPackage;
 
 		ValueType = FVoxelGeneratorParameterTerminalType(LocalValueType);
 	}

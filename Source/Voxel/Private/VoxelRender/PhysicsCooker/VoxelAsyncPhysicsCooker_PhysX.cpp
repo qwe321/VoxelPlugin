@@ -11,7 +11,7 @@
 #include "PhysicsEngine/BodySetup.h"
 #include "PhysicsEngine/PhysicsSettings.h"
 
-#if ENGINE_MAJOR_VERSION < 5 && WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
+#if ENGINE_MAJOR_VERSION < 5
 #include "IPhysXCookingModule.h"
 inline IPhysXCooking* GetPhysXCooking()
 {
