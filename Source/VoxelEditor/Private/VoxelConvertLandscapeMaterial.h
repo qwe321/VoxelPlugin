@@ -15,6 +15,6 @@ public:
 
 	static void ConvertMaterial(UMaterial* Material);
 	
-	static int32 ConvertExpressions(UObject* Owner, const TArray<UMaterialExpression*>& Expressions, TSet<UMaterialFunction*>& VisitedFunctions);
+	static int32 ConvertExpressions(UObject* Owner, const TConstArrayView<TObjectPtr<UMaterialExpression>>& Expressions, TSet<UMaterialFunction*>& VisitedFunctions);
 	static void ConvertExpression(UObject* Owner, UMaterialExpression* Expression, UClass* NewClass);
 };

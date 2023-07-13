@@ -41,7 +41,7 @@ public:
 		MenuBuilder.AddMenuEntry(
 			VOXEL_LOCTEXT("Reimport"),
 			VOXEL_LOCTEXT("Reimport the selected asset(s)."),
-			FSlateIcon(FEditorStyle::GetStyleSetName(), "ContentBrowser.AssetActions.ReimportAsset"),
+			FSlateIcon(FAppStyle::GetAppStyleSetName(), "ContentBrowser.AssetActions.ReimportAsset"),
 			FUIAction(
 				FExecuteAction::CreateSP(this, &FAssetTypeActions_VoxelVDBAsset::ExecuteReimport, Assets),
 				FCanExecuteAction::CreateSP(this, &FAssetTypeActions_VoxelVDBAsset::CanExecuteReimport, Assets)
@@ -50,7 +50,7 @@ public:
 		MenuBuilder.AddMenuEntry(
 			VOXEL_LOCTEXT("Export"),
 			VOXEL_LOCTEXT("Export the selected asset(s)."),
-			FSlateIcon(FEditorStyle::GetStyleSetName(), "ContentBrowser.AssetActions.OpenInExternalEditor"),
+			FSlateIcon(FAppStyle::GetAppStyleSetName(), "ContentBrowser.AssetActions.OpenInExternalEditor"),
 			FUIAction(
 				FExecuteAction::CreateSP(this, &FAssetTypeActions_VoxelVDBAsset::ExecuteExport, Assets)
 			)

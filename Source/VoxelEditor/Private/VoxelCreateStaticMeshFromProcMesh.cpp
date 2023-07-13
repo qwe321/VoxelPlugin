@@ -109,7 +109,7 @@ UStaticMesh* FVoxelCreateStaticMeshFromProcMesh::Create(UVoxelProceduralMeshComp
 	check(StaticMesh);
 	StaticMesh->InitResources();
 
-	StaticMesh->LightingGuid = FGuid::NewGuid();
+	StaticMesh->SetLightingGuid(FGuid::NewGuid());
 
 	// Add source to new StaticMesh
 	FStaticMeshSourceModel& SrcModel = StaticMesh->AddSourceModel();
@@ -126,12 +126,12 @@ UStaticMesh* FVoxelCreateStaticMeshFromProcMesh::Create(UVoxelProceduralMeshComp
 	// Copy materials to new mesh
 	for (UMaterialInterface* Material : MeshMaterials)
 	{
-		StaticMesh->StaticMaterials.Add(FStaticMaterial(Material));
+		StaticMesh->GetStaticMaterials().Add(FStaticMaterial(Material));
 	}
 
 	// Configure collision
 	StaticMesh->CreateBodySetup();
-	StaticMesh->BodySetup->CollisionTraceFlag = ECollisionTraceFlag::CTF_UseComplexAsSimple;
+	StaticMesh->GetBodySetup()->CollisionTraceFlag = ECollisionTraceFlag::CTF_UseComplexAsSimple;
 	
 	// Set the Imported version before calling the build
 	StaticMesh->ImportVersion = EImportStaticMeshVersion::LastVersion;

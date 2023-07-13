@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "VoxelMinimal.h"
 
-#if WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
+#if ENGINE_MAJOR_VERSION < 5
 template<typename T>
 class TVoxelPhysXRef
 {

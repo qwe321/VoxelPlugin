@@ -8,7 +8,7 @@
 #include "VoxelSubsystem.h"
 #include "VoxelDebugManager.generated.h"
 
-class VOXEL_API FVoxelGlobalDebugManager : public FTickerObjectBase
+class VOXEL_API FVoxelGlobalDebugManager : public FTSTickerObjectBase
 {
 public:
 	//~ Begin FTickerObjectBase Interface

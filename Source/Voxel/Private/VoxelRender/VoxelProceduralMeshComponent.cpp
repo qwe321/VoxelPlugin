@@ -231,6 +231,12 @@ void UVoxelProceduralMeshComponent::AddOnFreezeVoxelCollisionChanged(const AVoxe
 	Data.OnFreezeVoxelCollisionChanged.Add(NewDelegate);
 }
 
+bool UVoxelProceduralMeshComponent::GetTriMeshSizeEstimates(FTriMeshCollisionDataEstimates& OutTriMeshEstimates, bool bInUseAllTriData) const
+{
+	OutTriMeshEstimates.VerticeCount = GetModel()->VertexBuffer.Vertices.Num();
+	return true;
+}
+
 UVoxelProceduralMeshComponent::FFreezeCollisionData UVoxelProceduralMeshComponent::FreezeCollisionData;
 
 ///////////////////////////////////////////////////////////////////////////////

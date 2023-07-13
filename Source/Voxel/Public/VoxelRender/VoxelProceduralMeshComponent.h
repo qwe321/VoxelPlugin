@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine.h"
 #include "VoxelIntBox.h"
 #include "VoxelMinimal.h"
 #include "VoxelPriorityHandler.h"
@@ -48,19 +49,7 @@ enum class EVoxelProcMeshSectionUpdate : uint8
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnFreezeVoxelCollisionChanged, bool);
 
 UCLASS(BlueprintType, Blueprintable, ClassGroup = (Voxel), meta = (BlueprintSpawnableComponent))
-class VOXEL_API UVoxelProceduralMeshComponent
-#if 0 // <-- change here
-#if VOXEL_ENABLE_FOLIAGE_PAINT_HACK
-#error "Please replace the #if 1 above by a #if 0"
-#endif
-	: public UPrimitiveComponent
-#else
-#if !VOXEL_ENABLE_FOLIAGE_PAINT_HACK
-#error "Please replace the #if 0 above by a #if 1"
-#endif
-	// Inheriting from UModelComponent allows to use foliage paint tools in editor. Should have no side effects.
-	: public UModelComponent
-#endif
+class VOXEL_API UVoxelProceduralMeshComponent  : public UModelComponent
 {
 	GENERATED_BODY()
 	
@@ -125,6 +114,7 @@ public:
 	static void SetVoxelCollisionsFrozen(const AVoxelWorld* VoxelWorld, bool bFrozen);
 
 	static void AddOnFreezeVoxelCollisionChanged(const AVoxelWorld* VoxelWorld, const FOnFreezeVoxelCollisionChanged::FDelegate& NewDelegate);
+	virtual bool GetTriMeshSizeEstimates(FTriMeshCollisionDataEstimates& OutTriMeshEstimates, bool bInUseAllTriData) const override;
 	
 private:
 	struct FFreezeCollisionData

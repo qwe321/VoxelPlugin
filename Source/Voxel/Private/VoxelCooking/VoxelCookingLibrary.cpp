@@ -14,8 +14,6 @@
 
 #include "HAL/Event.h"
 
-#include "IPhysXCooking.h"
-#include "IPhysXCookingModule.h"
 
 #include "PhysXIncludes.h"
 #include "Misc/ScopeExit.h"
@@ -23,7 +21,9 @@
 #include "Interface_CollisionDataProviderCore.h"
 #include "Engine/Private/PhysicsEngine/PhysXSupport.h" // For FPhysXInputStream
 
-#if WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
+#if ENGINE_MAJOR_VERSION < 5
+#include "IPhysXCooking.h"
+#include "IPhysXCookingModule.h"
 struct FVoxelCookingTaskData
 {
 	IVoxelRenderer& Renderer;
@@ -205,7 +205,7 @@ FVoxelCookedData UVoxelCookingLibrary::CookVoxelDataImpl(const FVoxelCookingSett
 
 	FVoxelCookedData CookedData;
 	
-#if WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
+#if ENGINE_MAJOR_VERSION < 5
 	FVoxelCookingTaskData TaskData(*Renderer, CookedData.Mutable(), TotalNumChunks, Settings);
 
 	for (int32 X = Min.X; X < Max.X; X += MESHER_CHUNK_SIZE)
@@ -282,7 +282,7 @@ void UVoxelCookingLibrary::LoadCookedVoxelData(FVoxelCookedData CookedData, AVox
 
 	const auto& Chunks = CookedData.Const().GetChunks();
 
-#if WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
+#if ENGINE_MAJOR_VERSION < 5
 	TArray<physx::PxTriangleMesh*> TriMeshes;
 	TriMeshes.Reserve(Chunks.Num());
 	

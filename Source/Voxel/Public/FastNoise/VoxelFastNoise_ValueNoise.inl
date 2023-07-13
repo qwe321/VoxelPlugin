@@ -220,7 +220,7 @@ FN_FORCEINLINE v_flt TVoxelFastNoise_ValueNoise<T>::IQNoise_2D_Deriv(v_flt x, v_
 	{
 		x *= This().Lacunarity;
 		y *= This().Lacunarity;
-		const FVector2D P = This().Matrix2.TransformPoint({ float(x), float(y) });
+		const FVector2D P = This().Matrix2.TransformPoint(FVector2d( double(x), double(y) ));
 		x = P.X;
 		y = P.Y;
 

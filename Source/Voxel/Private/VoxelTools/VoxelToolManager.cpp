@@ -27,7 +27,7 @@ void UVoxelToolManager::CreateDefaultTools(bool bLoadBlueprints)
 		FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>(TEXT("AssetRegistry"));
 		
 		FARFilter Filter;
-		Filter.ClassNames.Add(UBlueprint::StaticClass()->GetFName());
+		Filter.ClassPaths.Add(UBlueprint::StaticClass()->GetClassPathName());
 
 		for (auto* Class : ToolClasses)
 		{

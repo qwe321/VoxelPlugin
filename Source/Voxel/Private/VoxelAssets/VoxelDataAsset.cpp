@@ -192,7 +192,7 @@ UTexture2D* UVoxelDataAsset::GetThumbnail()
 
 		ThumbnailSave.SetNumZeroed(DATA_ASSET_THUMBNAIL_RES * DATA_ASSET_THUMBNAIL_RES);
 
-		FTexture2DMipMap& Mip = ThumbnailTexture->PlatformData->Mips[0];
+		FTexture2DMipMap& Mip = ThumbnailTexture->GetPlatformData()->Mips[0];
 
 		void* TextureData = Mip.BulkData.Lock(LOCK_READ_WRITE);
 		FMemory::Memcpy(TextureData, ThumbnailSave.GetData(), ThumbnailSave.Num() * sizeof(FColor));

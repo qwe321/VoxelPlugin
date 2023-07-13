@@ -343,7 +343,7 @@ void FVoxelPaintMaterial_MaterialCollectionChannelCustomization::CustomizeHeader
 					IsEditorPreviewParameter.bOverride = true;
 
 					FStaticParameterSet Parameters;
-					Parameters.StaticSwitchParameters.Add(IsEditorPreviewParameter);
+					Parameters.EditorOnly.StaticSwitchParameters.Add(IsEditorPreviewParameter);
 
 					MasterMaterial->UpdateStaticPermutation(Parameters);
 				}

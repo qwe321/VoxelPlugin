@@ -403,7 +403,7 @@ template<typename TClass, typename TLambda>
 inline auto MakeWeakPtrDelegate(TClass* Object, TLambda Lambda)
 {
 	typename TDelegateFromLambda<TLambda>::Type Delegate;
-	TDelegateFromLambda<TLambda>::template TDelegateImpl<TClass, ESPMode::Fast, TLambda>::Create(Delegate, Object, MoveTemp(Lambda));
+	TDelegateFromLambda<TLambda>::template TDelegateImpl<TClass, ESPMode::ThreadSafe, TLambda>::Create(Delegate, Object, MoveTemp(Lambda));
 	return Delegate;
 }
 

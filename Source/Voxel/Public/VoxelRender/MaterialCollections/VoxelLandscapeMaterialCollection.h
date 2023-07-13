@@ -87,7 +87,7 @@ public:
 
 public:
 	//~ Begin UVoxelMaterialCollectionBase Interface
-	virtual int32 GetMaxMaterialIndices() const override { return FMath::ClampAngle(MaxMaterialsToBlendAtOnce, 1, 6); }
+	virtual int32 GetMaxMaterialIndices() const override { return FMath::ClampAngle(MaxMaterialsToBlendAtOnce, 1.0, 6.0); }
 	virtual UMaterialInterface* GetVoxelMaterial(const FVoxelMaterialIndices& Indices, uint64 UniqueIdForErrors) const override;
 	virtual TArray<FVoxelMaterialCollectionMaterialInfo> GetMaterials() const override;
 	virtual void InitializeCollection() override;

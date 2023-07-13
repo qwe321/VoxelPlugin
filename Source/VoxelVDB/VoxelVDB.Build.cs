@@ -28,17 +28,21 @@ public class VoxelVDB : ModuleRules
             new string[]
             {
                 "Voxel",
-                "OpenVDB",
                 "UEOpenExr",
                 "Core",
                 "CoreUObject",
-                "Engine"
+                "Engine",
+                "GeometryFramework",
+                "OpenVDB",
             }
         );
+        
+        PrivateDependencyModuleNames.Add("zlib");
 
 #if UE_5_0_OR_LATER
         // Needed to use OpenVDB, else include problems from it
         AddEngineThirdPartyPrivateStaticDependencies(Target, "IntelTBB");
+        AddEngineThirdPartyPrivateStaticDependencies(Target, "Blosc");
 #endif
     }
 }

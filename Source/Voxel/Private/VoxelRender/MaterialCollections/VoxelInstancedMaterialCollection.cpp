@@ -28,7 +28,7 @@ void UVoxelInstancedMaterialCollectionTemplates::PostEditChangeProperty(FPropert
 				const auto SetStaticParameter = [&](FName Name, bool bValue)
 				{
 					bool bFound = false;
-					for (auto& StaticSwitchParameter : StaticParameters.StaticSwitchParameters)
+					for (auto& StaticSwitchParameter : StaticParameters.EditorOnly.StaticSwitchParameters)
 					{
 						if (StaticSwitchParameter.ParameterInfo.Name == Name)
 						{

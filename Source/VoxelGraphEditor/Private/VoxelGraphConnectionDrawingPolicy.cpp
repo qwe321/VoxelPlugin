@@ -5,6 +5,7 @@
 #include "VoxelPinCategory.h"
 
 #include "BlueprintEditorSettings.h"
+#include "EditorStyleSet.h"
 #include "EdGraph/EdGraph.h"
 
 FConnectionDrawingPolicy* FVoxelGraphConnectionDrawingPolicyFactory::CreateConnectionPolicy(const UEdGraphSchema* Schema, int32 InBackLayerID, int32 InFrontLayerID, float ZoomFactor, const FSlateRect& InClippingRect, FSlateWindowElementList& InDrawElements, UEdGraph* InGraphObj) const
@@ -27,7 +28,7 @@ FVoxelGraphConnectionDrawingPolicy::FVoxelGraphConnectionDrawingPolicy(int32 InB
 	// But we do want to draw midpoint arrowheads
 	if (GetDefault<UBlueprintEditorSettings>()->bDrawMidpointArrowsInBlueprints)
 	{
-		MidpointImage = FEditorStyle::GetBrush(TEXT("Graph.Arrow"));
+		MidpointImage = FAppStyle::GetBrush(TEXT("Graph.Arrow"));
 		MidpointRadius = MidpointImage->ImageSize * ZoomFactor * 0.5f;
 	}
 

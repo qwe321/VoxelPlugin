@@ -71,7 +71,7 @@ void FVoxelConvertLandscapeMaterial::ConvertMaterial(UMaterial* Material)
 	FScopedTransaction Transaction(TEXT("ConvertMaterial"), VOXEL_LOCTEXT("Convert landscape material to voxel"), Material);
 
 	TSet<UMaterialFunction*> VisitedFunctions;
-	const int32 NumReplaced = ConvertExpressions(Material, Material->Expressions, VisitedFunctions);
+	const int32 NumReplaced = ConvertExpressions(Material, Material->GetExpressions(), VisitedFunctions);
 
 	const FText Text = FText::Format(VOXEL_LOCTEXT("{0} expressions replaced in {1}"), NumReplaced, FText::FromName(Material->GetFName()));
 	LOG_VOXEL(Log, TEXT("%s"), *Text.ToString());
@@ -82,12 +82,12 @@ void FVoxelConvertLandscapeMaterial::ConvertMaterial(UMaterial* Material)
 	FSlateNotificationManager::Get().AddNotification(Info);
 }
 
-int32 FVoxelConvertLandscapeMaterial::ConvertExpressions(UObject* Owner, const TArray<UMaterialExpression*>& Expressions, TSet<UMaterialFunction*>& VisitedFunctions)
+int32 FVoxelConvertLandscapeMaterial::ConvertExpressions(UObject* Owner, const TConstArrayView<TObjectPtr<UMaterialExpression>>& Expressions, TSet<UMaterialFunction*>& VisitedFunctions)
 {
 	int32 NumReplaced = 0;
 	
 	const auto ExpressionsCopy = Expressions;
-	for (auto* Expression : ExpressionsCopy)
+	for (auto Expression : ExpressionsCopy)
 	{
 		auto* VoxelClass = FVoxelMaterialExpressionUtilities::GetVoxelExpression(Expression->GetClass());
 		if (VoxelClass)
@@ -101,7 +101,7 @@ int32 FVoxelConvertLandscapeMaterial::ConvertExpressions(UObject* Owner, const T
 			if (Function && !VisitedFunctions.Contains(Function))
 			{
 				VisitedFunctions.Add(Function);
-				NumReplaced += ConvertExpressions(Function, Function->FunctionExpressions, VisitedFunctions);
+				NumReplaced += ConvertExpressions(Function, Function->GetExpressions(), VisitedFunctions);
 			}
 		}
 	}
@@ -119,7 +119,11 @@ void FVoxelConvertLandscapeMaterial::ConvertExpression(UObject* Owner, UMaterial
 	Expression->Modify();
 	NewExpression->Modify();
 
-	auto& Expressions = Owner->IsA<UMaterial>() ? CastChecked<UMaterial>(Owner)->Expressions : CastChecked<UMaterialFunction>(Owner)->FunctionExpressions;
+	const auto& ExpressionsView = Owner->IsA<UMaterial>() ? CastChecked<UMaterial>(Owner)->GetExpressions(): CastChecked<UMaterialFunction>(Owner)->GetExpressions();
+	TArray<TObjectPtr<UMaterialExpression>> Expressions;
+	for (auto Expr : ExpressionsView)
+		Expressions.Add(Expr);
+	
 	ensure(Expressions.Remove(Expression) == 1);
 	Expressions.Add(NewExpression);
 

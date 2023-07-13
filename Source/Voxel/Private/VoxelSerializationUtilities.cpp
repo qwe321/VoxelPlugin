@@ -8,7 +8,7 @@
 #include "Serialization/LargeMemoryWriter.h"
 
 THIRD_PARTY_INCLUDES_START
-#include "ThirdParty/zlib/zlib-1.2.5/Inc/zlib.h"
+#include "ThirdParty/zlib/1.2.12/include/zlib.h"
 THIRD_PARTY_INCLUDES_END
 
 void FVoxelSerializationUtilities::CompressData(

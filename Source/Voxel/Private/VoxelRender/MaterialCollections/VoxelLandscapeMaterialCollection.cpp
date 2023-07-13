@@ -314,7 +314,7 @@ UMaterialInstanceConstant* UVoxelLandscapeMaterialCollection::CreateInstanceForP
 			// Pass the layer to use to the voxel expression
 			// Add 1 000 000 to detect voxel vs landscape indices
 			Parameter.WeightmapIndex = 1000000 + Index;
-			StaticParameters.TerrainLayerWeightParameters.Add(Parameter);
+			StaticParameters.EditorOnly.TerrainLayerWeightParameters.Add(Parameter);
 		}
 
 		for (auto& Layer : Layers)
@@ -334,7 +334,7 @@ UMaterialInstanceConstant* UVoxelLandscapeMaterialCollection::CreateInstanceForP
 			Parameter.UE_5_SWITCH(ExpressionGUID, ExpressionGUID_DEPRECATED) = NameToInfo[Layer.Name].Guid;
 			// 1 000 006 is used to set Default
 			Parameter.WeightmapIndex = 1000006;
-			StaticParameters.TerrainLayerWeightParameters.Add(Parameter);
+			StaticParameters.EditorOnly.TerrainLayerWeightParameters.Add(Parameter);
 		}
 	}
 	
@@ -403,7 +403,7 @@ bool UVoxelLandscapeMaterialCollection::NeedsToBeConvertedToVoxel() const
 		return false;
 	}
 
-	return FVoxelMaterialExpressionUtilities::NeedsToBeConvertedToVoxel(ActualMaterial->Expressions);
+	return FVoxelMaterialExpressionUtilities::NeedsToBeConvertedToVoxel(ActualMaterial->GetExpressions());
 }
 
 void UVoxelLandscapeMaterialCollection::FixupLayers()

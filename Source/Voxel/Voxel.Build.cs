@@ -29,15 +29,15 @@ public class Voxel : ModuleRules
                 "Core",
                 "CoreUObject",
                 "Engine",
+                "PhysicsCore",
+                "GeometryFramework",
+                "GeometryCore",
                 "Networking",
+				"TypedElementFramework",
                 "Sockets",
                 "RHI",
-#if UE_4_23_OR_LATER
-                "PhysicsCore",
-#endif
                 "RenderCore",
                 "Landscape",
-                "PhysX",
                 "Projects",
 #if UE_4_26_OR_LATER
                 "DeveloperSettings",

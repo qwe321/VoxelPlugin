@@ -52,7 +52,7 @@ public:
 	virtual int32 StaticTerrainLayerWeight(FName ParameterName, int32 Default) override
 	{
 		FHLSLCompilerChild* HLSLCompiler = static_cast<FHLSLCompilerChild*>(GetBaseCompiler());
-		auto& TerrainLayerWeightParameters = HLSLCompiler->GetStaticParameters().TerrainLayerWeightParameters;
+		auto& TerrainLayerWeightParameters = HLSLCompiler->GetStaticParameters().EditorOnly.TerrainLayerWeightParameters;
 
 		TArray<int32> VoxelIndices;
 		int32 ParameterVoxelIndex = -1;
@@ -200,9 +200,9 @@ FORWARD_CLASS(UMaterialExpressionVoxelLandscapeVisibilityMask)
 
 #undef FORWARD_CLASS
 
-bool NeedsToBeConvertedToVoxelImp(const TArray<UMaterialExpression*>& Expressions, TSet<UMaterialFunction*>& VisitedFunctions)
+bool NeedsToBeConvertedToVoxelImp(const TConstArrayView<TObjectPtr<UMaterialExpression>>& Expressions, TSet<UMaterialFunction*>& VisitedFunctions)
 {
-	for (auto* Expression : Expressions)
+	for (auto Expression : Expressions)
 	{
 		if (FVoxelMaterialExpressionUtilities::GetVoxelExpression(Expression->GetClass()))
 		{
@@ -214,7 +214,7 @@ bool NeedsToBeConvertedToVoxelImp(const TArray<UMaterialExpression*>& Expression
 			if (Function && !VisitedFunctions.Contains(Function))
 			{
 				VisitedFunctions.Add(Function);
-				if (NeedsToBeConvertedToVoxelImp(Function->FunctionExpressions, VisitedFunctions))
+				if (NeedsToBeConvertedToVoxelImp(Function->GetExpressions(), VisitedFunctions))
 				{
 					return true;
 				}
@@ -225,7 +225,7 @@ bool NeedsToBeConvertedToVoxelImp(const TArray<UMaterialExpression*>& Expression
 	return false;
 }
 
-bool FVoxelMaterialExpressionUtilities::NeedsToBeConvertedToVoxel(const TArray<UMaterialExpression*>& Expressions)
+bool FVoxelMaterialExpressionUtilities::NeedsToBeConvertedToVoxel(const TConstArrayView<TObjectPtr<UMaterialExpression>>& Expressions)
 {
 	TSet<UMaterialFunction*> VisitedFunctions;
 	return NeedsToBeConvertedToVoxelImp(Expressions, VisitedFunctions);

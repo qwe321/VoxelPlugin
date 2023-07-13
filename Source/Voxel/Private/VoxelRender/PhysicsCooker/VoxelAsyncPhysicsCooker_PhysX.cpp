@@ -6,13 +6,13 @@
 #include "VoxelPhysXHelpers.h"
 #include "VoxelWorldRootComponent.h"
 
-#include "IPhysXCookingModule.h"
 
 #include "PhysicsPublic.h"
 #include "PhysicsEngine/BodySetup.h"
 #include "PhysicsEngine/PhysicsSettings.h"
 
-#if WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
+#if ENGINE_MAJOR_VERSION < 5 && WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
+#include "IPhysXCookingModule.h"
 inline IPhysXCooking* GetPhysXCooking()
 {
 	static IPhysXCookingModule* PhysXCookingModule = nullptr;

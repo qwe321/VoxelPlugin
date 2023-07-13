@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 
+#if ENGINE_MAJOR_VERSION < 5
 THIRD_PARTY_INCLUDES_START
 #include "Px.h"
 #include "PxVec4.h"
@@ -190,3 +191,4 @@ namespace FVoxelPhysXHelpers
 		return Size;
 	}
 }
+#endif

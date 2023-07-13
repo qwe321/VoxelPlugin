@@ -6,7 +6,7 @@
 #include "VoxelImporters/VoxelMagicaVoxImporter.h"
 
 #include "Editor.h"
-#include "AssetRegistryModule.h"
+#include "AssetRegistry/AssetRegistryModule.h"
 #include "Modules/ModuleManager.h"
 #include "PropertyEditorModule.h"
 #include "Widgets/SWindow.h"

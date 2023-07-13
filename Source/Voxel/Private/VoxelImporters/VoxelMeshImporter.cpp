@@ -26,7 +26,7 @@ static void GetMergedSectionFromStaticMesh(
 {
 	VOXEL_FUNCTION_COUNTER();
 	
-	FStaticMeshRenderData* RenderData = UE_5_SWITCH(InMesh->RenderData.Get(), InMesh->GetRenderData());
+	FStaticMeshRenderData* RenderData = UE_5_SWITCH(InMesh->GetRenderData(), InMesh->GetRenderData());
 	if (!ensure(RenderData) || !ensure(RenderData->LODResources.IsValidIndex(LODIndex))) return;
 
 	const FStaticMeshLODResources& LODResources = RenderData->LODResources[LODIndex];

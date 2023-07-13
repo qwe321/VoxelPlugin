@@ -78,6 +78,6 @@ struct VOXEL_API FVoxelMaterialExpressionUtilities
 
 		return Map.FindRef(LandscapeExpression);
 	}
-	static bool NeedsToBeConvertedToVoxel(const TArray<UMaterialExpression*>& Expressions);
+	static bool NeedsToBeConvertedToVoxel(const TConstArrayView<TObjectPtr<UMaterialExpression>>& Expressions);
 };
 #endif

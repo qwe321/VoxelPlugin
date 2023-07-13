@@ -17,7 +17,7 @@ struct FVoxelSimpleCollisionData
 	FBox Bounds;
 	TArray<FKBoxElem> BoxElems;
 	TArray<FKConvexElem> ConvexElems;
-#if WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
+#if ENGINE_MAJOR_VERSION < 5
 	TArray<TVoxelPhysXRef<PxConvexMesh>> ConvexMeshes;
 #endif
 
@@ -72,7 +72,7 @@ public:
 
 public:
 	TVoxelSharedRef<FVoxelSimpleCollisionHandle> CreateHandle();
-#if WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
+#if ENGINE_MAJOR_VERSION < 5
 	void SetCookedTriMeshes(const TArray<physx::PxTriangleMesh*>& TriMeshes);
 #endif
 

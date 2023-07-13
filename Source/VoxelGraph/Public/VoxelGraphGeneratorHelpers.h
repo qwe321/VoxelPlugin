@@ -80,7 +80,7 @@ public:
 		, bEnableRangeAnalysis(Object.bEnableRangeAnalysis)
 		, CustomOutputsNames(FName())
 	{
-		auto& Array = const_cast<TStaticArray<FName, MAX_VOXELGRAPH_OUTPUTS>&>(CustomOutputsNames);
+		auto& Array = const_cast<TStaticArray<FName, MAX_VOXELGRAPH_OUTPUTS>&>(InPlace, CustomOutputsNames);
 		for (auto& It : FloatOutputs)
 		{
 			ensure(Array[It.Value] == FName());

@@ -82,6 +82,6 @@ struct FVoxelPriorityHandler
 			const FIntVector Position = Positions->Get(Index);
 			Distance = FMath::Min(Distance, Bounds.ComputeSquaredDistanceFromBoxToPoint(Position));
 		}
-		return MAX_uint32 - uint32(FMath::Sqrt(Distance));
+		return MAX_uint32 - static_cast<uint32>(FMath::Sqrt(static_cast<double>(Distance)));
 	}
 };

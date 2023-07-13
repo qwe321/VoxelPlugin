@@ -3,10 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "IPhysXCooking.h"
 #include "VoxelAsyncPhysicsCooker.h"
 
 #if WITH_PHYSX && PHYSICS_INTERFACE_PHYSX
+#include "IPhysXCooking.h"
 struct FKConvexElem;
 class IPhysXCooking;
 
