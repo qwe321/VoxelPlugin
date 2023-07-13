@@ -175,7 +175,7 @@ void UK2Node_AddDataItem::GetMenuActions(FBlueprintActionDatabaseRegistrar& Acti
 		FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>(TEXT("AssetRegistry"));
 		
 		FARFilter Filter;
-		Filter.ClassNames.Add(UVoxelGraphDataItemConfig::StaticClass()->GetFName());
+		Filter.ClassPaths.Add(UVoxelGraphDataItemConfig::StaticClass()->GetClassPathName());
 		Filter.bRecursiveClasses = true;
 
 		TArray<FAssetData> Assets;
